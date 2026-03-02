@@ -1,6 +1,6 @@
 ---
-- name: Upload new code and Restart the service
-  hosts: 192.168.1.114
+- name: Upload new code and restart service
+  hosts: webservers
   become: true
 
   vars:
@@ -8,13 +8,13 @@
 
   tasks:
 
-    - name: Place custom HTML file
+    - name: Copy index file
       copy:
         src: index.html
         dest: /var/www/html/index.html
         mode: '0644'
 
-    - name: Restart httpd service
+    - name: Restart apache
       service:
         name: "{{ app }}"
         state: restarted
